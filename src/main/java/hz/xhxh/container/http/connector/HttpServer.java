@@ -1,4 +1,5 @@
-package ch01;
+package hz.xhxh.container.http.connector;
+
 
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -17,14 +18,7 @@ public class HttpServer
 
     private boolean shutdown = false;
 
-    public static void main(String...args)
-    {
-        var server = new HttpServer();
-        System.out.println(WEB_ROOT);
 
-        server.await();
-
-    }
 
     public void await()
     {
@@ -43,7 +37,7 @@ public class HttpServer
             Socket socket = null;
             InputStream input = null;
             OutputStream output = null;
-            
+
             try{
                 socket = serverSocket.accept();
 
@@ -56,7 +50,7 @@ public class HttpServer
                 Response response = new Response(output);
                 response.setRequest(request);
                 response.sendStaticSource();
-                
+
                 socket.close();
 
                 shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
@@ -76,4 +70,3 @@ public class HttpServer
     }
 
 }
-

@@ -1,4 +1,5 @@
-package ch01;
+package hz.xhxh.container.http.connector;
+
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class Request
         if(index1!=-1){
             index2 = requestString.indexOf(' ',index1+1);
             if(index2>index1)
-            return requestString.substring(index1+1,index2);
+                return requestString.substring(index1+1,index2);
         }
 
         return null;
@@ -55,11 +56,10 @@ public class Request
 
     public String getUri()
     {
-         return uri;    
+        return uri;
     }
 
 
 
 
 }
-
