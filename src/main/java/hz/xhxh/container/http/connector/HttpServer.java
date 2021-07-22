@@ -9,10 +9,13 @@ import java.io.OutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import static hz.xhxh.container.utility.Constants.WEB_ROOT;
+import static hz.xhxh.container.utility.Constants.port;
+
 public class HttpServer
 {
 
-    public static final String WEB_ROOT = System.getProperty("user.dir")+File.separator+"ROOT";
+   // public static final String WEB_ROOT = System.getProperty("user.dir")+File.separator+"webapps";
 
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
 
@@ -23,7 +26,7 @@ public class HttpServer
     public void await()
     {
         ServerSocket serverSocket = null;
-        int port = 9980;
+        //int port = 9980;
 
         try{
             serverSocket = new ServerSocket(port,1,InetAddress.getByName("localhost"));

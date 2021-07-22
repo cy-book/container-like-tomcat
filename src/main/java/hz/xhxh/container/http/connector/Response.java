@@ -1,6 +1,8 @@
 package hz.xhxh.container.http.connector;
 
 
+import hz.xhxh.container.utility.Constants;
+
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.File;
@@ -28,7 +30,7 @@ public class Response
         byte[] bytes = new byte[BUFFER_SIZE];
         FileInputStream fis = null;
         try{
-            File file = new File(HttpServer.WEB_ROOT,request.getUri());
+            File file = new File(Constants.WEB_ROOT,request.getUri());
 
             if(file.exists())
             {
