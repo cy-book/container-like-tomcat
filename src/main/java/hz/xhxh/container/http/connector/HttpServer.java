@@ -6,10 +6,8 @@ import java.net.ServerSocket;
 import java.net.InetAddress;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.File;
 import java.io.IOException;
 
-import static hz.xhxh.container.utility.Constants.WEB_ROOT;
 import static hz.xhxh.container.utility.Constants.port;
 
 public class HttpServer
@@ -20,8 +18,6 @@ public class HttpServer
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
 
     private boolean shutdown = false;
-
-
 
     public void await()
     {
@@ -52,23 +48,26 @@ public class HttpServer
 
                 Response response = new Response(output);
                 response.setRequest(request);
-                response.sendStaticSource();
+
+                if(request.getUri().startsWith("/servlet")){
+                    ServletProcessor servletProcessor = new ServletProcessor();
+                    servletProcessor.process(request,response);
+                }else {
+                    new StaticResourceProcessor().process(request,response);
+                }
 
                 socket.close();
 
                 shutdown = request.getUri().equals(SHUTDOWN_COMMAND);
                 input.close();
                 output.close();
-            }catch(IOException e){
+            }catch(Exception e){
 
                 e.printStackTrace();
                 continue;
             }
 
-
         }
-
-
 
     }
 

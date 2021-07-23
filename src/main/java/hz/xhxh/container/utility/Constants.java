@@ -1,6 +1,5 @@
 package hz.xhxh.container.utility;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -16,18 +15,23 @@ public final class Constants {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static Properties getUserProperties(){
+        return userProperties;
     }
 
     public static final String WEB_ROOT;
     static {
         var files =  userProperties.getProperty("web_root");
-        WEB_ROOT = Objects.requireNonNullElseGet(files, () -> System.getProperty("user.dir") + File.separator + "webapps");
+        WEB_ROOT = Objects.requireNonNullElseGet(files, () -> ConstantsAssist.WEB_ROOT_DEFAULT);
     }
     public static final int port;
     static {
         var pp = userProperties.getProperty("port");
         if(null == pp){
-            port = 8080;
+            port = ConstantsAssist.PORT_DEFAULT;
         }else {
             boolean flag = true;
             for(var c : pp.getBytes(StandardCharsets.UTF_8)){
@@ -38,7 +42,7 @@ public final class Constants {
             if(flag) {
                 port = Integer.parseInt(pp);
             }else {
-                port = 8080;
+                port = ConstantsAssist.PORT_DEFAULT;
             }
         }
     }
