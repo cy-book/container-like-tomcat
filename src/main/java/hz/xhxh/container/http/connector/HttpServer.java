@@ -49,7 +49,7 @@ public class HttpServer
                 Response response = new Response(output);
                 response.setRequest(request);
 
-                if(request.getUri().startsWith("/servlet")){
+                if(request.getUri().startsWith("/servlet/")){  //将原本的/servlet改为/servlet/ 这样不会出现/servlet...会去解析servlet文件
                     ServletProcessor servletProcessor = new ServletProcessor();
                     servletProcessor.process(request,response);
                 }else {

@@ -44,16 +44,18 @@ public class ServletProcessor {
         try {
             myServlet = ucl.loadClass(className);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             processError(request,response,String.format("Servlet %s can't load",className));
             return;
         }
 
         Servlet servlet = null;
+        FacadeRequest facadeRequest = new FacadeRequest(request);
+        FacadeResponse facadeResponse = new FacadeResponse(response);
         try {
             assert myServlet != null;
             servlet = (Servlet)myServlet.getDeclaredConstructor().newInstance();
-            servlet.service(request, response);
+            servlet.service(facadeRequest, facadeResponse);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ServletException | IOException e) {
             e.printStackTrace();
         }

@@ -20,4 +20,16 @@
 		Primitive_Servlet=hz.xhxh.container.servlet.PrimitiveServlet
 当你请求页面时就可以加载servlet 比如访问 http://localhost/servlet/Primitive
 
+#使用facade设计模式
+使用FacadeRequest类和FacadeResponse类 将Request 类 和 Response 类封装起来
+避免一些安全隐患：
+This compromises security. Servlet programmers who know the internal workings of
+this servlet container can downcast the ServletRequest and ServletResponse
+instances back to ex02.pyrmont.Request and ex02.pyrmont.Response respectively
+and call their public methods. Having a Request instance, they can call its parse
+method. Having a Response instance, they can call its sendStaticResource method.
+理解起来就是 用户的Servlet接受ServletRequest和ServletResponse, 如果他知道了内部的实现，
+就可以用向下转型将其转换为Request和Response,这样就会调用他们的方法,parse(),getUri(),
+使用门面模式避免了这些。
+
 
